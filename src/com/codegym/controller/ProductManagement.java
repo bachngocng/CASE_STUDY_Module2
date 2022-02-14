@@ -1,10 +1,10 @@
 package com.codegym.controller;
 
+import com.codegym.model.Bill;
 import com.codegym.model.Product;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ProductManagement implements GeneralManagement<Product>, ReadFile, WriteFile {
@@ -25,11 +25,10 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
         return products.size();
     }
 
-    //Tìm theo mã sản phẩm
-    public int findProductById(String id) {
+    public int findProductById(int id) {
         int index = -1;
         for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId().equals(id)) {
+            if (products.get(i).getId() == id) {
                 index = i;
                 break;
             }
@@ -37,7 +36,6 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
         return index;
     }
 
-    //Tìm theo tên sản phẩm
     public int findProductByName(String name) {
         int index = -1;
         for (int i = 0; i < products.size(); i++) {
@@ -49,11 +47,10 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
         return index;
     }
 
-    //Sắp xếp theo mã sản phẩm : chiều hỏi Quân???
     public void sortProductById() {
         for (int i = 0; i < products.size(); i++) {
             for (int j = products.size() -1; j > i; j--) {
-                if (products.get(j).getId().equals(products.get(j - 1).getId())) {
+                if (products.get(j).getId() < products.get(j - 1).getId()) {
                     Product temp = products.get(j);
                     products.set(j, products.get(j - 1));
                     products.set(j - 1, temp);
@@ -83,14 +80,14 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
 
     //Sửa
     @Override
-    public void updateById(String id, Product product) {
+    public void updateById(int id, Product product) {
         int index = findProductById(id);
         products.set(index, product);
     }
 
     //Xóa
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(int id) {
         int index = findProductById(id);
         if (index != -1) {
             products.remove(index);
@@ -101,7 +98,7 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
     }
 
     @Override
-    public Product getById(String id) {
+    public Product getById(int id) {
         int index = findProductById(id);
         return products.get(index);
     }
@@ -131,4 +128,6 @@ public class ProductManagement implements GeneralManagement<Product>, ReadFile, 
         }
         return productManagement;
     }
+
+
 }

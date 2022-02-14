@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Cart implements ReadFile, WriteFile, Serializable {
-    public static Scanner scanner = new Scanner(System.in);
     private List<Product> cart = new ArrayList<>();
     private ProductManagement productManagement = ProductManagement.getInstance();
     private User user;
@@ -25,6 +24,10 @@ public class Cart implements ReadFile, WriteFile, Serializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Product> getCart() {
+        return cart;
     }
 
     public int size() {
@@ -78,4 +81,12 @@ public class Cart implements ReadFile, WriteFile, Serializable {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         oos.writeObject(this.cart);
     }
+
+    public Cart getInstance(){
+        if(cart == null){
+            Cart cart = new Cart();
+        }
+        return (Cart) cart;
+    }
+
 }

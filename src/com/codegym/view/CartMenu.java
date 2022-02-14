@@ -2,15 +2,8 @@ package com.codegym.view;
 
 import com.codegym.controller.BillManagement;
 import com.codegym.controller.ProductManagement;
-import com.codegym.controller.ReadFile;
-import com.codegym.controller.WriteFile;
 import com.codegym.model.Cart;
-import com.codegym.model.Product;
-import com.sun.xml.internal.ws.developer.Serialization;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class CartMenu implements Serializable {
@@ -51,7 +44,7 @@ public class CartMenu implements Serializable {
                     System.out.println("--Tính tiền--");
                     System.out.println("Tổng giá trị giỏ hàng của bạn: " + cart.totalMoney());
                     cart.removeAllProduct();
-                    billManagement.readFile("yourCart.txt");
+                    billManagement.readFile("bill.txt");
                     billManagement.writeFile("bill.txt");
             }
             try{
@@ -76,6 +69,7 @@ public class CartMenu implements Serializable {
         scanner.nextLine();
         String name = scanner.nextLine();
         cart.addNewItem(name);
+        System.out.println("Đã thêm sản phẩm vào giỏ hàng!!!");
     }
 
     private void showProductMenu(ProductManagement productManagement) {

@@ -5,9 +5,9 @@ public interface GeneralManagement <T>{
 
     void addNew(T t);
 
-    void updateById(String id, T t);
+    void updateById(int id, T t);
 
-    boolean deleteById(String id);
+    boolean deleteById(int id);
 
-    T getById(String id);
+    T getById(int id);
 }

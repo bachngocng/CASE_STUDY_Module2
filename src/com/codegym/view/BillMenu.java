@@ -1,8 +1,11 @@
 package com.codegym.view;
 
 import com.codegym.controller.BillManagement;
+import com.codegym.controller.ProductManagement;
 import com.codegym.model.Bill;
+import com.codegym.model.Cart;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
@@ -10,11 +13,15 @@ import java.util.Scanner;
 public class BillMenu implements Serializable {
     public Scanner scanner = new Scanner(System.in);
 
-    public void run(){
+    public void run() throws IOException, ClassNotFoundException {
         BillManagement billManagement = new BillManagement();
+        Cart cart = new Cart();
+
         int choice = -1;
         try{
+            cart.readFile("yourCart.txt");
             billManagement.readFile("bill.txt");
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -48,7 +55,7 @@ public class BillMenu implements Serializable {
 
     }
 
-    private void showAddBill(BillManagement billManagement) {
+    private void showAddBill(BillManagement billManagement) throws IOException, ClassNotFoundException {
         System.out.println("Thêm hóa đơn mới");
         scanner.nextLine();
         Bill bill = inputNewBillInfo();
@@ -70,7 +77,7 @@ public class BillMenu implements Serializable {
         System.out.println("Tìm kiếm đơn hàng");
         scanner.nextLine();
         System.out.println("Nhập mã đơn hàng muốn tìm");
-        String maDonHang1 = scanner.nextLine();
+        int maDonHang1 = scanner.nextInt();
         index = billManagement.findBillById(maDonHang1);
         if (index!=-1) {
             System.out.println(billManagement.getById(maDonHang1));
@@ -83,7 +90,7 @@ public class BillMenu implements Serializable {
         System.out.println("Xóa đơn hàng");
         scanner.nextLine();
         System.out.println("Nhập mã đơn hàng muốn xóa");
-        String maDonHang = scanner.nextLine();
+        int maDonHang = scanner.nextInt();
         boolean isDeleted = billManagement.deleteById(maDonHang);
         if (isDeleted){
             System.out.println("Xóa thành công");
@@ -92,11 +99,11 @@ public class BillMenu implements Serializable {
         }
     }
 
-    private void showUpdateBill(BillManagement billManagement) {
+    private void showUpdateBill(BillManagement billManagement) throws IOException, ClassNotFoundException {
         System.out.println("Cập nhật hóa đơn");
         scanner.nextLine();
         System.out.println("Nhập mã đơn muốn chỉnh sửa");
-        String id = scanner.nextLine();
+        int id = scanner.nextInt();
         int index = billManagement.findBillById(id);
         if(index!=-1){
             Bill oldBill = inputNewBillInfo();
@@ -107,15 +114,17 @@ public class BillMenu implements Serializable {
         }
     }
 
-    private Bill inputNewBillInfo() {
+    private Bill inputNewBillInfo() throws IOException, ClassNotFoundException {
         System.out.println("Nhập mã hóa đơn");
         String id  = scanner.nextLine();
-        System.out.println("Nhập tổng giá đơn hàng");
-        long pricetag = scanner.nextLong();
-        System.out.println("Nhập ngày xuất hóa đơn");
-        scanner.nextLine();
-        String daySellOut = scanner.nextLine();
-        Bill bill = new Bill(id, pricetag, daySellOut);
+        System.out.println("Nhập tên sản phẩm");
+        String name = scanner.nextLine();
+        System.out.println("Nhập số lượng");
+        int quantity = scanner.nextInt();
+        Cart cart = new Cart();
+        cart.addNewItem(name);
+        long money = cart.totalMoney();
+        Bill bill = new Bill(id,cart,quantity, money);
         return bill;
     }
 

@@ -4,26 +4,25 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 public class Product implements Serializable {
-    private String id;
+    private int id;
     private String name;
     private long price;
     private String description;
-
     public Product() {
     }
 
-    public Product(String id, String name, long price, String description) {
+    public Product(int id, String name, long price, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

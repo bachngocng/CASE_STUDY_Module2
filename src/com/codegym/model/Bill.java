@@ -1,20 +1,36 @@
 package com.codegym.model;
 
-import java.io.Serializable;
+import java.io.*;
+
 
 public class Bill implements Serializable {
     private String id;
-    private long totalMoney;
-    private String daySellOut;
-    private final double VATfee = 0.1;
+    private Cart cart = new Cart();
+    private long money;
 
     public Bill() {
     }
 
-    public Bill(String id, long totalMoney, String daySellOut) {
+    public Bill(String id, Cart cart, int quantity, long money) throws IOException, ClassNotFoundException {
         this.id = id;
-        this.totalMoney = totalMoney;
-        this.daySellOut = daySellOut;
+        this.cart = cart;
+        this.money = cart.totalMoney();
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public long getMoney() {
+        return money;
+    }
+
+    public void setMoney(long money) {
+        this.money = money;
     }
 
     public String getId() {
@@ -25,28 +41,13 @@ public class Bill implements Serializable {
         this.id = id;
     }
 
-    public double getTotalMoney() {
-        return totalMoney;
-    }
-
-    public void setTotalMoney(long totalMoney) {
-        this.totalMoney = totalMoney;
-    }
-
-    public String getDaySellOut() {
-        return daySellOut;
-    }
-
-    public void setDaySellOut(String daySellOut) {
-        this.daySellOut = daySellOut;
-    }
 
     @Override
     public String toString() {
         return "Bill{" +
                 "id='" + id + '\'' +
-                ", pricetag=" + totalMoney +
-                ", daySellOut='" + daySellOut + '\'' +
+                ", product=" + cart +
+                "money= "+ money +
                 '}';
     }
 }

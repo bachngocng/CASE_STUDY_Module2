@@ -86,7 +86,7 @@ public class ProductMenu implements Serializable {
                     System.out.println("Tìm kiếm theo mã sản phảm");
                     System.out.println("Nhập mã sản phẩm cần tìm");
                     scanner.nextLine();
-                    String id = scanner.nextLine();
+                    int id = scanner.nextInt();
                     int index = productManagement.findProductById(id);
                     if (index != -1) {
                         System.out.println("Thông tin sản phẩm cần tìm: " + productManagement.getById(id));
@@ -125,7 +125,7 @@ public class ProductMenu implements Serializable {
     private void showDeleteProduct(ProductManagement productManagement) {
         System.out.println("Xóa sản phẩm");
         System.out.println("Nhập sản phẩm muốn xóa");
-        String id = scanner.nextLine();
+        int id = scanner.nextInt();
         boolean isDeleted = productManagement.deleteById(id);
         if (isDeleted){
             System.out.println("Đã xóa");
@@ -137,7 +137,7 @@ public class ProductMenu implements Serializable {
     private void showUpdatedProduct(ProductManagement productManagement) {
         System.out.println("Chỉnh sửa thông tin sản phẩm");
         System.out.println("Nhập mã sản phẩm cần chỉnh sửa thông tin");
-        String id = scanner.nextLine();
+        int id = scanner.nextInt();
         int index = productManagement.findProductById(id);
         if(index != -1){
             Product product = inputProductInfo();
@@ -156,8 +156,9 @@ public class ProductMenu implements Serializable {
 
     private Product inputProductInfo() {
         System.out.println("Nhập mã sản phẩm:");
-        String id = scanner.nextLine();
+        int id = scanner.nextInt();
         System.out.println("Nhập tên sản phẩm:");
+        scanner.nextLine();
         String name = scanner.nextLine();
         System.out.println("Nhập giá sản phẩm:");
         long price = scanner.nextLong();

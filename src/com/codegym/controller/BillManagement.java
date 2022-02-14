@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFile {
-    List<Bill> bills = new ArrayList<>();
+    List<Bill> bills = new ArrayList<Bill>();
 
     public int size(){
         return bills.size();
     }
 
     //Tìm kiếm theo mã hóa đơn
-    public int findBillById(String id) {
+    public int findBillById(int id) {
         int index = -1;
         for (int i = 0; i < bills.size(); i++) {
             if (bills.get(i).getId().equals(id)) {
@@ -24,6 +24,7 @@ public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFil
         }
         return index;
     }
+
 
     //Hiển thị
     @Override
@@ -40,14 +41,14 @@ public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFil
 
     //Sửa
     @Override
-    public void updateById(String id, Bill bill) {
+    public void updateById(int id, Bill bill) {
         int index = findBillById(id);
         bills.set(index, bill);
     }
 
     //Xóa
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(int id) {
         int index = findBillById(id);
         if (index != -1) {
             bills.remove(index);
@@ -58,7 +59,7 @@ public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFil
     }
 
     @Override
-    public Bill getById(String id) {
+    public Bill getById(int id) {
         int index = findBillById(id);
         return bills.get(index);
     }

@@ -1,11 +1,12 @@
 package com.codegym.view;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ManagementMenu {
     public static Scanner scanner = new Scanner(System.in);
 
-    public void run() {
+    public void run() throws IOException, ClassNotFoundException {
         int choice = -1;
         ProductMenu productMenu = new ProductMenu();
         BillMenu billMenu = new BillMenu();

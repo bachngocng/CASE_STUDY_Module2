@@ -12,7 +12,7 @@ public class LoginMenu {
     private UserManagement userManagement = UserManagement.getInstance();
     private ManagementMenu managementMenu = new ManagementMenu();
     private CartMenu cartMenu = new CartMenu();
-    public void run() {
+    public void run() throws IOException, ClassNotFoundException {
         int choice = -1;
         do {
             System.out.println("---Ứng dụng quản lý sản phẩm---");
@@ -37,7 +37,7 @@ public class LoginMenu {
         } while (choice != 0);
     }
 
-    private void doLogin() {
+    private void doLogin() throws IOException, ClassNotFoundException {
         System.out.println("Nhập username:");
         String username = scanner.nextLine();
         System.out.println("Nhập password:");
