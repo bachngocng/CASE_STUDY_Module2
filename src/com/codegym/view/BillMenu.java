@@ -1,9 +1,9 @@
 package com.codegym.view;
 
 import com.codegym.controller.BillManagement;
-import com.codegym.controller.ProductManagement;
 import com.codegym.model.Bill;
 import com.codegym.model.Cart;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -18,18 +18,21 @@ public class BillMenu implements Serializable {
         Cart cart = new Cart();
 
         int choice = -1;
-        try{
-            cart.readFile("yourCart.txt");
-            billManagement.readFile("bill.txt");
+        File file = new File("bill.txt");
+        if (file.exists()) {
+            try {
+                cart.readFile("yourCart.txt");
+                billManagement.readFile("bill.txt");
 
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         do {
             menu();
             System.out.println("Nhập lựa chọn của bạn");
             choice = scanner.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 1:
                     showAllBill(billManagement);
                     break;
@@ -46,9 +49,9 @@ public class BillMenu implements Serializable {
                     findBill(billManagement);
                     break;
             }
-            try{
+            try {
                 billManagement.writeFile("bill.txt");
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } while (choice != 0);
@@ -64,7 +67,7 @@ public class BillMenu implements Serializable {
 
     private void showAllBill(BillManagement billManagement) {
         int size = billManagement.size();
-        if(size == 0){
+        if (size == 0) {
             System.out.println("Danh sách trống");
         } else {
             System.out.println("-----Danh sách hóa đơn-----");
@@ -79,7 +82,7 @@ public class BillMenu implements Serializable {
         System.out.println("Nhập mã đơn hàng muốn tìm");
         int maDonHang1 = scanner.nextInt();
         index = billManagement.findBillById(maDonHang1);
-        if (index!=-1) {
+        if (index != -1) {
             System.out.println(billManagement.getById(maDonHang1));
         } else {
             System.out.println("Không tìm thấy");
@@ -92,7 +95,7 @@ public class BillMenu implements Serializable {
         System.out.println("Nhập mã đơn hàng muốn xóa");
         int maDonHang = scanner.nextInt();
         boolean isDeleted = billManagement.deleteById(maDonHang);
-        if (isDeleted){
+        if (isDeleted) {
             System.out.println("Xóa thành công");
         } else {
             System.out.println("Xóa thất bại vì ko tìm thấy đơn hàng");
@@ -105,7 +108,7 @@ public class BillMenu implements Serializable {
         System.out.println("Nhập mã đơn muốn chỉnh sửa");
         int id = scanner.nextInt();
         int index = billManagement.findBillById(id);
-        if(index!=-1){
+        if (index != -1) {
             Bill oldBill = inputNewBillInfo();
             billManagement.updateById(id, oldBill);
             System.out.println("Cập nhật thành công");
@@ -116,7 +119,7 @@ public class BillMenu implements Serializable {
 
     private Bill inputNewBillInfo() throws IOException, ClassNotFoundException {
         System.out.println("Nhập mã hóa đơn");
-        String id  = scanner.nextLine();
+        String id = scanner.nextLine();
         System.out.println("Nhập tên sản phẩm");
         String name = scanner.nextLine();
         System.out.println("Nhập số lượng");
@@ -124,7 +127,7 @@ public class BillMenu implements Serializable {
         Cart cart = new Cart();
         cart.addNewItem(name);
         long money = cart.totalMoney();
-        Bill bill = new Bill(id,cart,quantity, money);
+        Bill bill = new Bill(id, cart, quantity, money);
         return bill;
     }
 

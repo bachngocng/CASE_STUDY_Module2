@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManagement implements ReadFile,WriteFile {
+public class UserManagement implements ReadFile,WriteFile,Serializable {
     private List<User> users = new ArrayList<>();
     private static UserManagement userManagement;
 

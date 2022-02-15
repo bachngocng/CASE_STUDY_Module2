@@ -7,11 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductManagement implements GeneralManagement<Product>, ReadFile, WriteFile {
+public class ProductManagement implements GeneralManagement<Product>, ReadFile, WriteFile,Serializable {
     private List<Product> products = new ArrayList<>();
     private static ProductManagement productManagement;
-    public ProductManagement() {
-        File file = new File("product.txt");
+    public ProductManagement() {        File file = new File("product.txt");
         if (file.exists()) {
             try {
                 readFile("product.txt");

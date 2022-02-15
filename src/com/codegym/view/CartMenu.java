@@ -3,6 +3,7 @@ package com.codegym.view;
 import com.codegym.controller.BillManagement;
 import com.codegym.controller.ProductManagement;
 import com.codegym.model.Cart;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class CartMenu implements Serializable {
         Cart cart = new Cart();
         BillManagement billManagement = new BillManagement();
         int choice = -1;
-        try{
+        try {
             cart.readFile("yourCart.txt");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -44,12 +45,17 @@ public class CartMenu implements Serializable {
                     System.out.println("--Tính tiền--");
                     System.out.println("Tổng giá trị giỏ hàng của bạn: " + cart.totalMoney());
                     cart.removeAllProduct();
-                    billManagement.readFile("bill.txt");
+                    try {
+                        billManagement.readFile("bill.txt");
+                    } catch (EOFException e){
+                        e.printStackTrace();
+                    }
                     billManagement.writeFile("bill.txt");
             }
-            try{
+            try {
+
                 cart.writeFile("yourCart.txt");
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } while (choice != 0);

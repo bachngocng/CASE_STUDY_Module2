@@ -7,7 +7,6 @@ import com.codegym.controller.WriteFile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Cart implements ReadFile, WriteFile, Serializable {
     private List<Product> cart = new ArrayList<>();
@@ -80,13 +79,6 @@ public class Cart implements ReadFile, WriteFile, Serializable {
         OutputStream os = new FileOutputStream(path);
         ObjectOutputStream oos = new ObjectOutputStream(os);
         oos.writeObject(this.cart);
-    }
-
-    public Cart getInstance(){
-        if(cart == null){
-            Cart cart = new Cart();
-        }
-        return (Cart) cart;
     }
 
 }

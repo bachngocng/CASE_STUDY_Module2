@@ -1,7 +1,6 @@
 package com.codegym.model;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 public class Product implements Serializable {
     private int id;

@@ -54,9 +54,7 @@ public class LoginMenu {
             } else {
                 try {
                     cartMenu.run();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }

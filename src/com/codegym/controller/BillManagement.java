@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFile {
+public class BillManagement implements GeneralManagement<Bill>,ReadFile,WriteFile,Serializable {
     List<Bill> bills = new ArrayList<Bill>();
 
     public int size(){
